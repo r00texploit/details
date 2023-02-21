@@ -8,10 +8,12 @@ import 'package:details/models/product.dart';
 import 'details_screen.dart';
 
 class Body extends StatelessWidget {
-  const Body({
-    Product? product,
-    super.key,
-  });
+  Body(doc, doc2, doc3);
+
+  // const Body(doc, {
+  //   Product? product,
+  //   super.key,
+  // });
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,13 +39,13 @@ class Body extends StatelessWidget {
                   itemIndex: index,
                   product: products[index],
                   press: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreen(
-                            product: products[index],
-                          ),
-                        ));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => DetailsScreen(
+                    //         product: products[index]1
+                    //       ),
+                    //     ));
                   },
                 ),
               )

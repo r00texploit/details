@@ -26,13 +26,15 @@ import 'package:details/screens/admin/screens/home.dart';
 class AuthController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
-  late TextEditingController email,
+  TextEditingController? email,
       name,
       password,
       Rpassword,
       repassword,
       dep,
-      number;
+      number,
+      loc,
+      pri;
 
   bool ob = false;
   bool obscureTextLogin = true;
@@ -59,6 +61,9 @@ class AuthController extends GetxController {
     repassword = TextEditingController();
     number = TextEditingController();
     name = TextEditingController();
+    pri = TextEditingController();
+    loc = TextEditingController();
+
     _user = Rx<User?>(auth.currentUser);
     _user.bindStream(auth.userChanges());
     ever(_user, _initialScreen);
@@ -191,7 +196,7 @@ class AuthController extends GetxController {
     if (value.length < 6) {
       return "password length must be more than 6 ";
     }
-    if (password.text != value) {
+    if (password!.text != value) {
       return "Password not matched ";
     }
     return null;
@@ -228,21 +233,21 @@ class AuthController extends GetxController {
         // SmartDialog.showLoading();
         showdilog();
         final credential = await auth.createUserWithEmailAndPassword(
-            email: email.text, password: password.text);
-        credential.user!.updateDisplayName(name.text);
+            email: email!.text, password: password!.text);
+        credential.user!.updateDisplayName(name!.text);
         await credential.user!.reload();
         await FirebaseFirestore.instance
             .collection('users')
             .doc(credential.user!.uid)
             .set({
-          'name': name.text,
-          'email': email.text,
-          'number': int.tryParse(number.text),
+          'name': name!.text,
+          'email': email!.text,
+          'number': int.tryParse(number!.text),
           'uid': credential.user!.uid,
         });
         Get.back();
-        email.clear();
-        password.clear();
+        email!.clear();
+        password!.clear();
         showbar("About User", "User message", "User Created!!", true);
       } on FirebaseAuthException catch (e) {
         Get.back();
@@ -257,20 +262,21 @@ class AuthController extends GetxController {
         // SmartDialog.showLoading();
         var uid = FirebaseAuth.instance.currentUser!.uid;
         var cs = FirebaseFirestore.instance.collection('center').get();
-        
+
         log(uid);
         FirebaseFirestore.instance.collection("center").doc(uid).update({
-          'name': name.text,
-          // 'email': email.text,
-          'phone': int.tryParse(number.text),
-          'department': dep,
+          'name': name!.text,
+          'location': loc!.text,
+          'price': pri!.text,
+          'phone': int.tryParse(number!.text),
+          'department': dep!.text,
 
           // 'uid': credential.user!.uid,
         });
 
         Get.back();
-        email.clear();
-        password.clear();
+        email!.clear();
+        password!.clear();
         showbar("About Center", "Center message", "Center Created!!", true);
       } on FirebaseAuthException catch (e) {
         Get.back();
@@ -282,20 +288,20 @@ class AuthController extends GetxController {
   void booking(doc) async {
     if (formKey2.currentState!.validate()) {
       // var centerName = TextEditingController();
-      // centerName.text = doc;
+      // centerName!.text = doc;
       try {
         showdilog();
         await FirebaseFirestore.instance.collection('booking').doc().set({
-          'name': name.text,
-          'email': email.text,
-          'number': int.tryParse(number.text),
-          'department': dep.text,
+          'name': name!.text,
+          'age': email!.text,
+          'phone': int.tryParse(number!.text),
+          'department': dep!.text,
           'centerName': doc,
           'approve': 0,
         });
         Get.back();
-        email.clear();
-        password.clear();
+        email!.clear();
+        password!.clear();
         showbar("About booking", "booking message", "booking Created!!", true);
       } on FirebaseAuthException catch (e) {
         Get.back();
@@ -309,77 +315,77 @@ class AuthController extends GetxController {
       try {
         showdilog();
         await auth.signInWithEmailAndPassword(
-            email: email.text, password: password.text);
+            email: email!.text, password: password!.text);
         var ch = await FirebaseFirestore.instance
             .collection('admin')
             // .where('aprrov', isEqualTo: 1)
-            // .where('email', isEqualTo: email.text)
+            // .where('email', isEqualTo: email!.text)
             .get();
         var ch2 = await FirebaseFirestore.instance
             .collection('users')
             // .where('aprrov', isEqualTo: 1)
-            // .where('email', isEqualTo: email.text)
+            // .where('email', isEqualTo: email!.text)
             .get();
         var ch3 = await FirebaseFirestore.instance
             .collection('training')
             // .where('aprrov', isEqualTo: 1)
-            // .where('email', isEqualTo: email.text)
+            // .where('email', isEqualTo: email!.text)
             .get();
         var ch4 = await FirebaseFirestore.instance
             .collection('center')
             // .where('aprrov', isEqualTo: 1)
-            // .where('email', isEqualTo: email.text)
+            // .where('email', isEqualTo: email!.text)
             .get();
         int approve = 0;
         for (var element in ch.docs) {
-          if (element['email'] == email.text) {
+          if (element['email'] == email!.text) {
             approve = 1;
             // Get.back();
             // Get.offAll(() => const HomeScreen());
           }
         }
         for (var element in ch2.docs) {
-          if (element['email'] == email.text) {
+          if (element['email'] == email!.text) {
             approve = 2;
             // Get.back();
             // Get.offAll(() => const HomeScreen());
           }
         }
         for (var element in ch3.docs) {
-          if (element['email'] == email.text) {
+          if (element['email'] == email!.text) {
             approve = 3;
             // Get.back();
             // Get.offAll(() => const HomeScreen());
           }
         }
         for (var element in ch4.docs) {
-          if (element['email'] == email.text) {
+          if (element['email'] == email!.text) {
             approve = 4;
             // Get.back();
             // Get.offAll(() => const HomeScreen());
           }
         }
         if (approve == 1) {
-          email.clear();
-          password.clear();
+          email!.clear();
+          password!.clear();
           Get.back();
           Get.offAll(() => AdminHome());
         }
         if (approve == 2) {
-          email.clear();
-          password.clear();
+          email!.clear();
+          password!.clear();
           Get.back();
           Get.offAll(() => UserPage());
         }
         if (approve == 3) {
-          email.clear();
-          password.clear();
+          email!.clear();
+          password!.clear();
           Get.back();
           Get.offAll(() => RoomsPage());
         }
         if (approve == 4) {
-          email.clear();
-          password.clear();
+          email!.clear();
+          password!.clear();
           Get.back();
           Get.offAll(() => CenterPage());
         }

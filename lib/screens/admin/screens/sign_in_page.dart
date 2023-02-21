@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
                           child: Column(
                             children: [
                               CustomTextField(
-                                  controller: _.email,
+                                  controller: _.email!,
                                   validator: (value) {
                                     return _.validate(value!);
                                   },
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                                   icon: const Icon(Icons.email),
                                   input: TextInputType.emailAddress),
                               CustomTextField(
-                                  controller: _.password,
+                                  controller: _.password!,
                                   validator: (value) {
                                     return _.validatePassword(value!);
                                   },

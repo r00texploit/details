@@ -12,7 +12,7 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       backgroundColor: kPrimaryColor,
-      body: const Body(),
+      // body:  Body(),
     );
   }
 

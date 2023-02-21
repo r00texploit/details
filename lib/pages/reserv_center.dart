@@ -135,7 +135,7 @@ class _MyreservState extends State<Myreserv> {
                                                   .collection('booking')
                                                   .doc(snapshot
                                                       .data!.docs[index].id)
-                                                  .update({"approve": false});
+                                                  .delete();
 
                                               setState(() {
                                                 Get.back();
@@ -171,7 +171,7 @@ class _MyreservState extends State<Myreserv> {
                                                   .collection('booking')
                                                   .doc(snapshot
                                                       .data!.docs[index].id)
-                                                  .update({"approve": true});
+                                                  .update({"approve": 1});
 
                                               setState(() {
                                                 Get.back();

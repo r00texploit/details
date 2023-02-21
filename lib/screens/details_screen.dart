@@ -6,17 +6,18 @@ import 'package:url_launcher/url_launcher_string.dart';
 // import 'package:details/screens/details/componants/body.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Product product;
+  String? doc, doc2, doc3;
+  DetailsScreen(doc, doc2, doc3);
 
-  const DetailsScreen({required this.product});
+  // var product;
+
+  // DetailsScreen({});
 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       appBar: buildAppBar(context),
-      body: Body(
-        product: product,
-      ),
+      body: Body(doc, doc2, doc3),
     );
   }
 
