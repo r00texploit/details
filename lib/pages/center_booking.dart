@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:details/constants.dart';
 // import 'package:details/screens/center/center2.dart';
 
-class center extends StatelessWidget {
+class CenterBooking extends StatelessWidget {
+  String? doc;
+  CenterBooking(this.doc);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       backgroundColor: kPrimaryColor,
-      body:Text(""),// booking(),
+      body: booking(doc),
     );
   }
 
@@ -20,9 +23,7 @@ class center extends StatelessWidget {
       elevation: 0,
       centerTitle: false,
       title: Text('booking'),
-      actions: <Widget>[
-        
-      ],
+      actions: <Widget>[],
     );
   }
 }

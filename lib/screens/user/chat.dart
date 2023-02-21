@@ -59,7 +59,7 @@ class _ChatState extends State<Chat> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Chat with \nyour friends',
+            'Chat with \nyour Trainer',
             style: TextStyle(
                 fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
           ),

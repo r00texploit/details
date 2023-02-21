@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:details/constants.dart';
 import 'package:details/controller/auth_controller.dart';
 import 'package:details/pages/autiziem.dart';
-import 'package:details/pages/choose.dart';
+import 'package:details/pages/edit_center_info.dart';
+import 'package:details/pages/reserv_center.dart';
+import 'package:details/pages/reservation.dart';
+import 'package:details/pages/user_page.dart';
 import 'package:details/pages/ptsd.dart';
 import 'package:details/pages/slow_learner.dart';
 import 'package:details/screens/user/chat.dart';
@@ -75,7 +78,7 @@ class Items extends StatelessWidget {
                     onTap: () {
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => CartPage()));
-                      Get.to(() => Chat());
+                      Get.to(() => Myreserv());
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -88,7 +91,7 @@ class Items extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      "Chat",
+                      "Reservation",
                       style: TextStyle(
                         fontSize: 18,
                         color: Color(0xff4ac53a5),
@@ -115,7 +118,7 @@ class Items extends StatelessWidget {
                     onTap: () {
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => CartPage()));
-                      Get.to(() => ChooseItems());
+                      Get.to(() => EditInfo());
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -128,7 +131,7 @@ class Items extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      "Erchad",
+                      "Edit Info",
                       style: TextStyle(
                         fontSize: 18,
                         color: Color(0xff4ac53a5),

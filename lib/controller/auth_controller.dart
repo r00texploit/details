@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:details/pages/choose.dart';
+import 'package:details/chat/new_chat.dart';
+import 'package:details/chat/room.dart';
+import 'package:details/pages/user_page.dart';
 import 'package:details/pages/home%20page.dart';
 import 'package:details/screens/Chat/chat_list.dart';
 import 'package:details/screens/center.dart';
 import 'package:details/pages/item.dart';
 import 'package:details/screens/center/home.dart';
-import 'package:details/screens/user/chat.dart';
+// import 'package:details/screens/user/chat.dart';
 import 'package:details/screens/expantion.dart';
 import 'package:details/screens/login_screen.dart';
 import 'package:details/screens/signup_screen.dart';
@@ -73,7 +77,7 @@ class AuthController extends GetxController {
 
     if (user != null) {
       for (var e in admin.docs) {
-        if (e["email"] == user!.email) {
+        if (e["email"] == user.email) {
           // route = LoginScreen();
           ipev = 1;
           update();
@@ -108,7 +112,7 @@ class AuthController extends GetxController {
     var routes = [
       LoginScreen(),
       AdminHome(),
-      ChooseItems(),
+      UserPage(),
       PrivateTrainer(),
       CenterPage()
     ];
@@ -247,8 +251,36 @@ class AuthController extends GetxController {
     }
   }
 
-  void booking() async {
+  void updateCenterInfo() async {
     if (formKey2.currentState!.validate()) {
+      try {
+        // SmartDialog.showLoading();
+        var uid = FirebaseAuth.instance.currentUser!.uid;
+        log(uid);
+        FirebaseFirestore.instance.collection("center").doc(uid).update({
+          'name': name.text,
+          // 'email': email.text,
+          'phone': int.tryParse(number.text),
+          'department': dep,
+
+          // 'uid': credential.user!.uid,
+        });
+
+        Get.back();
+        email.clear();
+        password.clear();
+        showbar("About Center", "Center message", "Center Created!!", true);
+      } on FirebaseAuthException catch (e) {
+        Get.back();
+        showbar("About Center", "Center message", e.toString(), false);
+      }
+    }
+  }
+
+  void booking(doc) async {
+    if (formKey2.currentState!.validate()) {
+      // var centerName = TextEditingController();
+      // centerName.text = doc;
       try {
         showdilog();
         await FirebaseFirestore.instance.collection('booking').doc().set({
@@ -256,6 +288,8 @@ class AuthController extends GetxController {
           'email': email.text,
           'number': int.tryParse(number.text),
           'department': dep.text,
+          'centerName': doc,
+          'approve': 0,
         });
         Get.back();
         email.clear();
@@ -333,13 +367,13 @@ class AuthController extends GetxController {
           email.clear();
           password.clear();
           Get.back();
-          Get.offAll(() => ChooseItems());
+          Get.offAll(() => UserPage());
         }
         if (approve == 3) {
           email.clear();
           password.clear();
           Get.back();
-          Get.offAll(() => PrivateTrainer());
+          Get.offAll(() => RoomsPage());
         }
         if (approve == 4) {
           email.clear();

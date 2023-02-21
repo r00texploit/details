@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 class booking extends StatelessWidget {
   final AuthController controller = Get.put(AuthController());
+  String? doc;
+  booking(this.doc);
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -158,7 +160,7 @@ class booking extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    controller.booking();
+                    controller.booking(doc);
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -183,7 +185,7 @@ class booking extends StatelessWidget {
                       ],
                     ),
                     child: const Text(
-                      "REGISTER",
+                      "Booking",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
