@@ -256,6 +256,8 @@ class AuthController extends GetxController {
       try {
         // SmartDialog.showLoading();
         var uid = FirebaseAuth.instance.currentUser!.uid;
+        var cs = FirebaseFirestore.instance.collection('center').get();
+        
         log(uid);
         FirebaseFirestore.instance.collection("center").doc(uid).update({
           'name': name.text,

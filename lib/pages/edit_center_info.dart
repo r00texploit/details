@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:details/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,6 +18,9 @@ class EditInfo extends StatelessWidget {
       actions: <Widget>[],
     );
   }
+
+  var cs = FirebaseFirestore.instance.collection('center').snapshots();
+  
 
   Widget build(BuildContext context) {
     return Scaffold(
