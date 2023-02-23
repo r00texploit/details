@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:details/details/screens/product/products_screen.dart';
 import 'package:details/pages/center_booking.dart';
 import 'package:details/screens/center.dart';
 import 'package:details/widget/home%20app%20bar.dart';
@@ -47,8 +48,8 @@ class _UserCenterState extends State<UserCenter> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              Get.to(CenterBooking(
-                                  snapshot.data!.docs[index]['name']));
+                              Get.to(ProductsScreen());
+                              //snapshot.data!.docs[index]['name']));
                               // print("object");
                             },
                             child: Card(

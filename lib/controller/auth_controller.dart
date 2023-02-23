@@ -215,7 +215,7 @@ class AuthController extends GetxController {
             onPressed: () async {
               await auth
                   .signOut()
-                  .then((value) => Get.offAll(() => const MyApp()));
+                  .then((value) => Get.offAll(() => LoginScreen()));
             },
             child: const Text('yes')),
         TextButton(

@@ -81,20 +81,6 @@ class LoginPage extends StatelessWidget {
                               _.login();
                             },
                             color: Colors.blueAccent)
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Text("Dont have an account?"),
-                        //     Text(
-                        //       "Sign Up",
-                        //       style:4
-                        //           Te                         رxtStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                        //     ),
-                        //   ],
-                        // )
                       ],
                     ),
                   ),

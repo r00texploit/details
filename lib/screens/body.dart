@@ -1,3 +1,4 @@
+import 'package:details/details/models/product.dart';
 import 'package:details/screens/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,10 +35,10 @@ class Body extends StatelessWidget {
                         topRight: Radius.circular(40))),
               ),
               ListView.builder(
-                itemCount: products.length,
+                itemCount: products!.length,
                 itemBuilder: (context, index) => productCard(
                   itemIndex: index,
-                  product: products[index],
+                  product: products![index],
                   press: () {
                     // Navigator.push(
                     //     context,
