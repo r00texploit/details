@@ -13,10 +13,10 @@ final _auth = FirebaseAuth.instance;
 late User signedInUser;
 String? messageText;
 
-class ChatScreen1 extends StatefulWidget {
+class ChatScreen2 extends StatefulWidget {
   static const String screenRoute = 'chat_screen';
   String? img, name, tel, uid;
-  ChatScreen1(
+  ChatScreen2(
       {Key? key, img, required this.name, required this.tel, required this.uid})
       : super(key: key);
 
@@ -24,7 +24,7 @@ class ChatScreen1 extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen1> {
+class _ChatScreenState extends State<ChatScreen2> {
   TextEditingController messageController = TextEditingController();
 
   final _firestore = FirebaseFirestore.instance;
@@ -107,7 +107,8 @@ class _ChatScreenState extends State<ChatScreen1> {
             StreamBuilder<QuerySnapshot>(
                 stream: _firestore
                     .collection('messages')
-                    .orderBy("time", descending: false).where("field")
+                    .orderBy("time", descending: false)
+                    // .where("field")
                     .snapshots(),
                 builder: (context, snapshot) {
                   List<MessageLine> messageWidgets = [];
@@ -176,7 +177,7 @@ class _ChatScreenState extends State<ChatScreen1> {
                         'receiver': widget.uid,
                         'text': messageController.text.trim(),
                         'time': FieldValue.serverTimestamp(),
-                        'isTrainer': false,
+                        'isTrainer': true,
                       });
                       messageController.clear();
                     },

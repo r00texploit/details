@@ -9,6 +9,7 @@ import 'package:details/model/chatmodel/messageModel.dart';
 import 'package:details/screens/Chat/chat_screen.dart';
 import 'package:details/screens/Chat/image_view_screen.dart';
 import 'package:details/screens/Chat/size_config.dart';
+import 'package:details/training_list_chat.dart';
 import 'package:details/widget/toastfile.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -85,6 +86,11 @@ class _ChatTrainingState extends State<ChatTraining> {
   }
 
   Widget _body() {
+    // var ui = FirebaseFirestore.instance
+    //                 .collection('messages')
+    //                 .orderBy("time", descending: false)
+    //                 .where("sender", isEqualTo: widget.uid)
+    //                 .snapshots();
     return SingleChildScrollView(
       child: CustomScrollView(shrinkWrap: true, slivers: [
         SliverList(
@@ -111,8 +117,8 @@ class _ChatTrainingState extends State<ChatTraining> {
                           );
                         } else {
                           return
-                              // Expanded(
-                              //   child:
+                              //  Expanded(
+                              //     child:
                               Container(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             width: double.infinity,
@@ -146,6 +152,7 @@ class _ChatTrainingState extends State<ChatTraining> {
                                   );
                                   // }
                                 }),
+                            // )
                           );
                         }
                       }
@@ -189,7 +196,7 @@ class _ChatTrainingState extends State<ChatTraining> {
     return GestureDetector(
         onTap: () {
           Get.to(() =>
-              ChatScreen1(name: name, tel: tel, /*img: avatar*/ uid: userid));
+              ChatScreen2(name: name, tel: tel, /*img: avatar*/ uid: userid));
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) =>
