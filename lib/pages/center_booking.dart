@@ -5,15 +5,15 @@ import 'package:details/constants.dart';
 // import 'package:details/screens/center/center2.dart';
 
 class CenterBooking extends StatelessWidget {
-  String? doc;
-  CenterBooking( {required this.doc});
+  String? doc,email;
+  CenterBooking( {required this.doc,required this.email});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       backgroundColor: kPrimaryColor,
-      body: booking(doc),
+      body: booking(doc,email),
     );
   }
 

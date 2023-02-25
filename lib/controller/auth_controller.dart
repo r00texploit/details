@@ -286,7 +286,7 @@ class AuthController extends GetxController {
     }
   }
 
-  void booking(doc) async {
+  void booking(doc, bookID) async {
     if (formKey2.currentState!.validate()) {
       // var centerName = TextEditingController();
       // centerName!.text = doc;
@@ -295,6 +295,7 @@ class AuthController extends GetxController {
         await FirebaseFirestore.instance.collection('booking').doc().set({
           'name': name!.text,
           'age': email!.text,
+          'email': bookID,
           'phone': int.tryParse(number!.text),
           'department': dep!.text,
           'centerName': doc,

@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 class booking extends StatelessWidget {
   // final AuthController controller = Get.put(AuthController());
   String? doc;
-  booking(this.doc);
+  String? email;
+  booking(this.doc, this.email);
 
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
@@ -171,7 +172,7 @@ class booking extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.booking(doc);
+                          controller.booking(doc,email);
                         },
                         child: Container(
                           alignment: Alignment.center,

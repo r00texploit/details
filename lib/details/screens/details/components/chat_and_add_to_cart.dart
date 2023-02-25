@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import '../../../constants.dart';
 
 class ChatAndAddToCart extends StatelessWidget {
-  String? s;
+  String? s,f;
    ChatAndAddToCart({
     Key? key,
     required this.s,
+    required this.f,
   }) : super(key: key);
 
   @override
@@ -40,7 +41,7 @@ class ChatAndAddToCart extends StatelessWidget {
           // const Spacer(),
           TextButton.icon(
             onPressed: () {
-              Get.to(() => CenterBooking(doc: s));
+              Get.to(() => CenterBooking(doc: s, email: f));
             },
             icon: const Icon(
               Icons.shopping_bag,
