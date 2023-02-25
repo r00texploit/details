@@ -1,6 +1,8 @@
 import 'package:bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:details/AdminHome.dart';
+import 'package:details/details/screens/product/products_screen.dart';
+import 'package:details/pages/art.dart';
 import 'package:details/pages/erchad.dart';
 // import 'package:details/screens/center/item.dart';
 import 'package:details/pages/item.dart';
@@ -51,7 +53,7 @@ class _UserPageState extends State<UserPage> {
   var key3 = Key("3");
   var widgetsList = [
     UserHome(),
-    UserCenter(),
+    ProductsScreen(),
     Chat(),
   ];
 
@@ -172,7 +174,7 @@ class ItemsUser extends StatelessWidget {
       backgroundColor: kPrimaryColor,
       elevation: 0,
       centerTitle: false,
-      title: Text('User'),
+      // title: Text('User'),
       // actions: <Widget>[
       //   // IconButton(
       //   //     onPressed: () {
@@ -230,7 +232,7 @@ class ItemsUser extends StatelessWidget {
                     onTap: () {
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => CartPage()));
-                      Get.to(() => UserCenter());
+                      Get.to(() => Autiziem());
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -243,7 +245,7 @@ class ItemsUser extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      "Center",
+                      "twahod",
                       style: TextStyle(
                         fontSize: 18,
                         color: Color(0xff4ac53a5),
@@ -270,7 +272,7 @@ class ItemsUser extends StatelessWidget {
                     onTap: () {
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => CartPage()));
-                      Get.to(() => Erchad());
+                      Get.to(() => PTSD());
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -283,9 +285,91 @@ class ItemsUser extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      "Erchad",
+                      "PTSD",
                       style: TextStyle(
                         fontSize: 18,
+                        color: Color(0xff4ac53a5),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )),
+        Container(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => CartPage()));
+                      Get.to(() => SlowLearner());
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      height: 120,
+                      width: 120,
+                      child: Image.asset("assets/image/avatar-1.png"),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Slow learning",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xff4ac53a5),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )),
+        Container(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => CartPage()));
+                      Get.to(() => Art());
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      height: 120,
+                      width: 120,
+                      child: Image.asset("assets/image/avatar-1.png"),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "The art of dealing",
+                      style: TextStyle(
+                        fontSize: 15,
                         color: Color(0xff4ac53a5),
                         fontWeight: FontWeight.bold,
                       ),
@@ -331,19 +415,19 @@ class UserHome extends StatelessWidget {
               child: Column(
                 children: [
                   //76032
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
-                    child: const Text(
-                      "User",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0XFF4C53A5),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   alignment: Alignment.centerLeft,
+                  //   margin: const EdgeInsets.symmetric(
+                  //       vertical: 20, horizontal: 10),
+                  //   child: const Text(
+                  //     "User",
+                  //     style: TextStyle(
+                  //       fontSize: 25,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: Color(0XFF4C53A5),
+                  //     ),
+                  //   ),
+                  // ),
                   ItemsUser(),
                 ],
               ),

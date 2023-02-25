@@ -10,7 +10,7 @@ import 'dart:io';
 import '../widgets/snackbar.dart';
 import 'package:path/path.dart';
 
-class AddTravelController extends GetxController {
+class AddDataController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late TextEditingController name, dep, price, no, email, password;
   DateTime time = DateTime.now();
@@ -93,7 +93,7 @@ class AddTravelController extends GetxController {
         "email": email.text,
         "password": password.text
       };
-      collectionReference.doc().set(re).whenComplete(() {
+      collectionReference.doc(credential.user!.uid).set(re).whenComplete(() {
         Get.back();
         showbar("center Added", "center Added", "center Added ", true);
         clear();

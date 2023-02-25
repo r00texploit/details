@@ -73,7 +73,7 @@ class Body extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "name description",
+                          "conntact us",
                           style: TextStyle(color: kTextLightColor),
                         ),
                         IconButton(

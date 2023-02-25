@@ -96,7 +96,8 @@ class Body extends StatelessWidget {
                                           (BuildContext context, int index) {
                                         Product products = Product.fromMap(
                                             snapshot.data!.docs[index]);
-                                        return ProductCard(
+                                        return 
+                                        ProductCard(
                                           itemIndex: index,
                                           product: products,
                                           press: () {

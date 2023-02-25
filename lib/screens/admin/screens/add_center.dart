@@ -1,8 +1,10 @@
+import 'package:details/details/constants.dart';
+import 'package:details/screens/admin/controller/add_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:details/screens/admin/widgets/custom_textfield.dart';
 
-import '../controller/add_travel_controller.dart';
+// import '../controller/add_travel_controller.dart';
 
 class Addcenter extends StatelessWidget {
   const Addcenter({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class Addcenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kPrimaryColor,
         title: const Text('Add center'),
       ),
       resizeToAvoidBottomInset: false,
@@ -23,8 +26,8 @@ Widget form(context) {
   TextEditingController n = TextEditingController();
   var height = MediaQuery.of(context).size.height;
   var width = MediaQuery.of(context).size.width;
-  return GetBuilder<AddTravelController>(
-      init: AddTravelController(),
+  return GetBuilder<AddDataController>(
+      init: AddDataController(),
       builder: (_) {
         return Form(
           key: _.formKey,

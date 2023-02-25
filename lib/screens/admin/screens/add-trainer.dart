@@ -1,8 +1,10 @@
+import 'package:details/details/constants.dart';
+import 'package:details/screens/admin/controller/add_data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:details/screens/admin/widgets/custom_textfield.dart';
 
-import '../controller/add_travel_controller.dart';
+// import '../controller/add_travel_controller.dart';
 
 class AddTrainer extends StatelessWidget {
   const AddTrainer({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class AddTrainer extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Trainer'),
+        backgroundColor: kPrimaryColor,
       ),
       resizeToAvoidBottomInset: false,
       body: form(context),
@@ -23,8 +26,8 @@ Widget form(context) {
   TextEditingController n = TextEditingController();
   var height = MediaQuery.of(context).size.height;
   var width = MediaQuery.of(context).size.width;
-  return GetBuilder<AddTravelController>(
-      init: AddTravelController(),
+  return GetBuilder<AddDataController>(
+      init: AddDataController(),
       builder: (_) {
         return Form(
           key: _.formKey,
@@ -80,7 +83,7 @@ Widget form(context) {
                             return _.validateAddress(value!);
                           },
                           lable: 'password',
-                          icon: const Icon(Icons.accessibility),
+                          icon: const Icon(Icons.key),
                           input: TextInputType.text),
                       // const SizedBox(height: 20),
                       // CustomTextField(
@@ -140,14 +143,14 @@ Widget form(context) {
                                       left: width / 10,
                                       right: width / 10)),
                               backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromRGBO(19, 26, 44, 1.0)),
+                                  Color.fromARGB(255, 4, 72, 77)),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13),
                                       side: const BorderSide(
-                                          color: Color.fromRGBO(
-                                              19, 26, 44, 1.0)))),
+                                          color:
+                                              Color.fromARGB(255, 4, 72, 77)))),
                             ),
                             child: const Text(
                               'Save',

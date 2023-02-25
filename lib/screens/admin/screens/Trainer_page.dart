@@ -17,6 +17,7 @@ class _TrainerPageState extends State<TrainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 4, 72, 77),
         title: const Text('Trainer Page'),
       ),
       body: Padding(

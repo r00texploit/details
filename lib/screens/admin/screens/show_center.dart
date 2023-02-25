@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:details/details/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:details/screens/admin/widgets/custom_button.dart';
@@ -18,6 +19,7 @@ class _ShowcenterState extends State<Showcenter> {
     return Scaffold(
       appBar: AppBar(
         title: Text('All center'),
+        backgroundColor: kPrimaryColor,
       ),
       body: Padding(
           padding: const EdgeInsets.all(20),

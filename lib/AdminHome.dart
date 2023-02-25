@@ -58,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen1> {
   //}
   //}
   void messagesStreams() async {
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+    await for (var snapshot in _firestore.collection('chats').snapshots()) {
       for (var message in snapshot.docs) {
         print((message.data()));
       }
@@ -106,8 +106,9 @@ class _ChatScreenState extends State<ChatScreen1> {
           children: [
             StreamBuilder<QuerySnapshot>(
                 stream: _firestore
-                    .collection('messages')
-                    .orderBy("time", descending: false).where("field")
+                    .collection('chats')
+                    .orderBy("time", descending: false)
+                    // .where("field")
                     .snapshots(),
                 builder: (context, snapshot) {
                   List<MessageLine> messageWidgets = [];
@@ -171,7 +172,7 @@ class _ChatScreenState extends State<ChatScreen1> {
                   TextButton(
                     onPressed: () {
                       log("message:$uid");
-                      _firestore.collection('messages').add({
+                      _firestore.collection('chats').add({
                         'sender': signedInUser.email,
                         'receiver': widget.uid,
                         'text': messageController.text.trim(),

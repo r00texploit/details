@@ -86,11 +86,6 @@ class _ChatTrainingState extends State<ChatTraining> {
   }
 
   Widget _body() {
-    // var ui = FirebaseFirestore.instance
-    //                 .collection('messages')
-    //                 .orderBy("time", descending: false)
-    //                 .where("sender", isEqualTo: widget.uid)
-    //                 .snapshots();
     return SingleChildScrollView(
       child: CustomScrollView(shrinkWrap: true, slivers: [
         SliverList(
@@ -102,13 +97,13 @@ class _ChatTrainingState extends State<ChatTraining> {
                     stream: FirebaseFirestore.instance
                         .collection('users')
                         .snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
+                    builder: (context, AsyncSnapshot<QuerySnapshot> data) {
+                      if (!data.hasData) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        if (snapshot.data!.docs.isEmpty) {
+                        if (data.data!.docs.isEmpty) {
                           return const Center(
                             child: Text('No A vailable requset',
                                 style: TextStyle(
@@ -116,10 +111,7 @@ class _ChatTrainingState extends State<ChatTraining> {
                                     color: Colors.white)),
                           );
                         } else {
-                          return
-                              //  Expanded(
-                              //     child:
-                              Container(
+                          return Container(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             width: double.infinity,
                             decoration: const BoxDecoration(
@@ -134,25 +126,25 @@ class _ChatTrainingState extends State<ChatTraining> {
                                 scrollDirection: Axis.vertical,
                                 padding: const EdgeInsets.only(top: 35),
                                 physics: const BouncingScrollPhysics(),
-                                itemCount: snapshot.data!.docs.length,
+                                itemCount: data.data!.docs.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  // print(snapshot.data!.docs[index]['uid']);
-                                  // var chats = FirebaseFirestore.instance
-                                  //     .collection('messages')
-                                  //     .where("uid",
-                                  //         isEqualTo: snapshot.data!.docs[index]
-                                  //             .get("uid"));
-                                  queryValues(
-                                      snapshot.data!.docs[index]['email']);
-                                  return _itemChats(
-                                    // avatar: snapshot.data!.docs[index]['img'],
-                                    name: snapshot.data!.docs[index]['name'],
-                                    userid: snapshot.data!.docs[index]['uid'],
-                                    tel: snapshot.data!.docs[index]['number'],
-                                  );
-                                  // }
+                                  return StreamBuilder<QuerySnapshot>(
+                                      stream: FirebaseFirestore.instance
+                                          .collection("chats")
+                                          .where("isTrainer", isEqualTo: false)
+                                          .where("receiver",isNotEqualTo: data.data!.docs[index]['uid'])
+                                          // .where("sender",)
+                                          .snapshots(),
+                                      builder: ((context, snapshot) {
+                                        // return Text("");
+                                        return _itemChats(
+                                          // avatar: snapshot.data!.docs[index]['img'],
+                                          name: data.data!.docs[index]['name'],
+                                          userid: data.data!.docs[index]['uid'],
+                                          tel: data.data!.docs[index]['number'],
+                                        );
+                                      }));
                                 }),
-                            // )
                           );
                         }
                       }

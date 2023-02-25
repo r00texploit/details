@@ -1,4 +1,6 @@
+import 'package:details/details/constants.dart';
 import 'package:details/screens/admin/screens/Trainer_page.dart';
+import 'package:details/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,40 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: kPrimaryColor,
+      elevation: 0,
+      centerTitle: false,
+      title: Text('Admin'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons
+              .notifications), //SvgPicture.asset("assets/icons/notification.svg"),
+          onPressed: () {},
+        ),
+        IconButton(
+            onPressed: () {
+              //
+              Get.offAll(LoginScreen());
+            },
+            icon: Icon(
+              Icons.logout,
+            ))
+      ],
+      // actions: <Widget>[
+      //   // IconButton(
+      //   //     onPressed: () {
+      //   //       //
+      //   //       Get.offAll(LoginScreen());
+      //   //     },
+      //   //     icon: Icon(
+      //   //       Icons.logout,
+      //   //     ))
+      // ],
+    );
+  }
+
   AuthController auth = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -23,13 +59,7 @@ class _AdminHomeState extends State<AdminHome> {
     final width = data.size.width;
     final height = data.size.height;
     return Scaffold(
-      appBar: AppBar(title: Text('Admin Page'), actions: [
-        IconButton(
-            onPressed: () {
-              auth.signOut();
-            },
-            icon: Icon(Icons.logout))
-      ]),
+      appBar: buildAppBar(),
       body: Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
@@ -104,7 +134,7 @@ class _Card_dState extends State<Card_d> {
             context, MaterialPageRoute(builder: (context) => widget.nav));
       },
       child: Card(
-        color: Colors.blueAccent,
+        color: kPrimaryColor,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Center(

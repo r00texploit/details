@@ -38,8 +38,8 @@ class ProductCard extends StatelessWidget {
             Container(
               height: 136,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                color: /*itemIndex!.isEven ? kBlueColor :*/ kSecondaryColor,
+                borderRadius: BorderRadius.circular(20),
+                color: itemIndex!.isEven ? kBlueColor : kSecondaryColor,
                 boxShadow: [kDefaultShadow],
               ),
               child: Container(
@@ -92,6 +92,24 @@ class ProductCard extends StatelessWidget {
                           horizontal: kDefaultPadding),
                       child: Text(
                         "title: ${product!.title}",
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kDefaultPadding * 1.5, // 30 padding
+                        vertical: kDefaultPadding / 4, // 5 top and bottom
+                      ),
+                      decoration: const BoxDecoration(
+                        color: kSecondaryColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(22),
+                          topRight: Radius.circular(22),
+                        ),
+                      ),
+                      child: Text(
+                        "Location: ${product!.loc}",
                         style: Theme.of(context).textTheme.button,
                       ),
                     ),
