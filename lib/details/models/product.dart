@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-  int? price;
-  String? id, title, email, number, description, image;
+  int? number;
+  String? id, title, email, description, image, department, loc, price;
 
   Product({this.id, this.price, this.title, this.description, this.image});
   Product.fromMap(DocumentSnapshot? data) {
     id = data!.id;
     title = data["name"];
     email = data["email"];
-    number = data["number"];
+    number = data["phone"];
+    loc = data["location"];
+    department = data["department"];
+    price = data["price"];
   }
 }
 

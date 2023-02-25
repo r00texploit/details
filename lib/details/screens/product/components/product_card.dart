@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:details/details/models/product.dart';
 import 'package:flutter/material.dart';
 // import 'package:furniture_app/models/product.dart';
@@ -21,7 +23,7 @@ class ProductCard extends StatelessWidget {
     // It  will provide us total height and width of our screen
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: kDefaultPadding / 2,
       ),
@@ -37,11 +39,11 @@ class ProductCard extends StatelessWidget {
               height: 136,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
-                color: itemIndex!.isEven ? kBlueColor : kSecondaryColor,
+                color: /*itemIndex!.isEven ? kBlueColor :*/ kSecondaryColor,
                 boxShadow: [kDefaultShadow],
               ),
               child: Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
@@ -50,17 +52,24 @@ class ProductCard extends StatelessWidget {
             ),
             // our product image
             Positioned(
-              top: 0,
+              top: 30,
               right: 0,
+              bottom: 0,
               child: Hero(
-                tag: '${product!.id}',
+                tag: Random.secure(),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                  height: 160,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  decoration: BoxDecoration(
+                    // shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                  height: 130,
                   // image is square but we add extra 20 + 20 padding thats why width is 200
-                  width: 200,
+                  width: 150,
                   child: Image.asset(
-                    product!.image!,
+                    "assets/image/avatar-1.png",
+                    // product!.image!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -77,23 +86,23 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        product!.title!,
+                        "title: ${product!.title}",
                         style: Theme.of(context).textTheme.button,
                       ),
                     ),
                     // it use the available space
-                    Spacer(),
+                    const Spacer(),
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: kDefaultPadding * 1.5, // 30 padding
                         vertical: kDefaultPadding / 4, // 5 top and bottom
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: kSecondaryColor,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(22),

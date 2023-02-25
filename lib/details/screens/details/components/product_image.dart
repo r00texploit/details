@@ -31,7 +31,8 @@ class ProductPoster extends StatelessWidget {
             ),
           ),
           Image.asset(
-            image!,
+            "assets/image/avatar-1.png",
+            // image!,
             height: size!.width * 0.75,
             width: size!.width * 0.75,
             fit: BoxFit.cover,

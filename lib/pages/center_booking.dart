@@ -6,7 +6,7 @@ import 'package:details/constants.dart';
 
 class CenterBooking extends StatelessWidget {
   String? doc;
-  CenterBooking(this.doc);
+  CenterBooking( {required this.doc});
 
   @override
   Widget build(BuildContext context) {

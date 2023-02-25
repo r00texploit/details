@@ -1,8 +1,8 @@
 import 'package:details/details/constants.dart';
 import 'package:details/details/models/product.dart';
+import 'package:details/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-// import 'package:furniture_app/constants.dart';
-// import 'package:furniture_app/models/product.dart';
+import 'package:get/get.dart';
 
 import 'chat_and_add_to_cart.dart';
 import 'list_of_colors.dart';
@@ -12,6 +12,7 @@ class Body extends StatelessWidget {
   // final Product? product;
   Product? name;
   Body({Key? key, this.name}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // it provide us total height and width
@@ -45,7 +46,10 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const ListOfColors(),
+                  // const ListOfColors(),
+                  SizedBox(
+                    height: 100,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: kDefaultPadding / 2),
@@ -62,19 +66,19 @@ class Body extends StatelessWidget {
                       color: kSecondaryColor,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: kDefaultPadding / 2),
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
                     child: Text(
-                      name!.description!,
-                      style: const TextStyle(color: kTextLightColor),
+                      "name description",
+                      style: TextStyle(color: kTextLightColor),
                     ),
                   ),
                   const SizedBox(height: kDefaultPadding),
                 ],
               ),
             ),
-            const ChatAndAddToCart(),
+            ChatAndAddToCart(s: name!.title!),
           ],
         ),
       ),

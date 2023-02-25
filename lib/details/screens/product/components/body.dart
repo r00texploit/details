@@ -92,25 +92,28 @@ class Body extends StatelessWidget {
                                 } else {
                                   return ListView.builder(
                                       itemCount: snapshot.data!.docs.length,
-                                      itemBuilder: (BuildContext context,
-                                              int index) =>
-                                          ProductCard(
-                                            itemIndex: index,
-                                            product: products![index],
-                                            press: () {
-                                              Product products = Product.fromMap(
-                                                  snapshot.data!.docs[index]);
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailsScreen(
-                                                    name: products,
-                                                  ),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        Product products = Product.fromMap(
+                                            snapshot.data!.docs[index]);
+                                        return ProductCard(
+                                          itemIndex: index,
+                                          product: products,
+                                          press: () {
+                                            // Product products = Product.fromMap(
+                                            //     snapshot.data!.docs[index]);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailsScreen(
+                                                  name: products,
                                                 ),
-                                              );
-                                            },
-                                          ));
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      });
                                 }
                               }
                             }))

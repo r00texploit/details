@@ -23,9 +23,10 @@ class APIHelper {
       String? idUser, String globalId) {
     try {
       return FirebaseFirestore.instance
-          .collection('chats/$idUser/userschat')
-          .doc(globalId)
-          .collection('messages')
+          .collection('chats/$idUser/messages')
+          // userschat')
+          // .doc(globalId)
+          // .collection('messages')
           .orderBy("createdAt", descending: true)
           .snapshots()
           .transform(StreamFormatter.transformer(MessagesModel.fromJson));
@@ -83,13 +84,13 @@ class APIHelper {
       // if (!isAlreadychat && userChat.chatId != null) {}
       final refMessages = userChatCollectionRef
           .doc(idUser)
-          .collection('userschat')
-          .doc(globalId)
+          // .collection('userschat')
+          // .doc(globalId)
           .collection('messages');
       final refMessages1 = userChatCollectionRef
-          .doc(idUser)
-          .collection('userschat')
           .doc(userId)
+          // .collection('userschat')
+          // .doc(userId)
           .collection('messages');
       final newMessage1 = anonymous;
 

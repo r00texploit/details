@@ -1,11 +1,15 @@
+import 'package:details/pages/center_booking.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 
 class ChatAndAddToCart extends StatelessWidget {
-  const ChatAndAddToCart({
+  String? s;
+   ChatAndAddToCart({
     Key? key,
+    required this.s,
   }) : super(key: key);
 
   @override
@@ -35,7 +39,9 @@ class ChatAndAddToCart extends StatelessWidget {
           // it will cover all available spaces
           // const Spacer(),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CenterBooking(doc: s));
+            },
             icon: const Icon(
               Icons.shopping_bag,
               size: 18,

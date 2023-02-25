@@ -80,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Container(
             width: SizeConfig.blockSizeHorizontal * 16,
             child: IconButton(
-              icon: Image.asset("assets/images/upload_image_icon.png"),
+              icon: Image.asset("assets/images/avatar-1.png"),
               iconSize: 40,
               onPressed: () async {
                 _showCupertinoModalSheet();
@@ -102,7 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   suffixIcon: Padding(
                     padding: const EdgeInsetsDirectional.only(end: 12.0),
                     child: IconButton(
-                      icon: Image.asset("assets/images/sendbtn.png"),
+                      icon: Icon(Icons.send),
                       onPressed: () async {
                         await sendMessage();
                       },
@@ -136,80 +136,82 @@ class _ChatScreenState extends State<ChatScreen> {
         Get.back();
         return false;
       },
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: const Color(0xffFDFDFD),
-        appBar: customAppBar(textTheme),
-        body: LayoutBuilder(
-          builder: (context, constraints) => Scrollbar(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Expanded(
-                  child: StreamBuilder<List<MessagesModel>>(
-                      stream: apiHelper.getChatMessages(
-                          chatId, global.uid.toString()),
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          default:
-                            if (snapshot.hasError) {
-                              return buildText('something went wrong');
-                            } else {
-                              messages = snapshot.data;
-                              if (messages == null) {
-                                messages = [];
-                              }
-
-                              return messages!.isEmpty
-                                  ? buildText('say HI')
-                                  : Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: SizeConfig.blockSizeVertical *
-                                              12),
-                                      child: ListView.builder(
-                                        reverse: true,
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: messages!.length,
-                                        itemBuilder: (context, index) {
-                                          var groupDate = groupBy(
-                                              messages!,
-                                              (dynamic a) => a.createdAt
-                                                  .toString()
-                                                  .substring(0, 10));
-                                          groupDate.forEach((key, value) {
-                                            MessagesModel m = value.lastWhere(
-                                                (e) =>
-                                                    e.createdAt
-                                                        .toString()
-                                                        .substring(0, 10) ==
-                                                    key.toString());
-                                            messages![messages!.indexOf(m)]
-                                                .isShowDate = true;
-                                            isDone = true;
-                                          });
-                                          final message = messages![index];
-                                          return _buildMessage(
-                                            message,
-                                            message.userId1 ==
-                                                global.uid.toString(),
-                                          );
-                                        },
-                                      ),
-                                    );
+      child:
+          // Scaffold(
+          //   key: _scaffoldKey,
+          //   backgroundColor: const Color(0xffFDFDFD),
+          //   appBar: customAppBar(textTheme),
+          //   body:
+          LayoutBuilder(
+        builder: (context, constraints) => Scrollbar(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: StreamBuilder<List<MessagesModel>>(
+                    stream: apiHelper.getChatMessages(
+                        chatId, global.uid.toString()),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        default:
+                          if (snapshot.hasError) {
+                            return buildText('something went wrong');
+                          } else {
+                            messages = snapshot.data;
+                            if (messages == null) {
+                              messages = [];
                             }
-                        }
-                      }),
-                )
-              ],
-            ),
+
+                            return messages!.isEmpty
+                                ? buildText('say HI')
+                                : Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom:
+                                            SizeConfig.blockSizeVertical * 12),
+                                    child: ListView.builder(
+                                      reverse: true,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: messages!.length,
+                                      itemBuilder: (context, index) {
+                                        var groupDate = groupBy(
+                                            messages!,
+                                            (dynamic a) => a.createdAt
+                                                .toString()
+                                                .substring(0, 10));
+                                        groupDate.forEach((key, value) {
+                                          MessagesModel m = value.lastWhere(
+                                              (e) =>
+                                                  e.createdAt
+                                                      .toString()
+                                                      .substring(0, 10) ==
+                                                  key.toString());
+                                          messages![messages!.indexOf(m)]
+                                              .isShowDate = true;
+                                          isDone = true;
+                                        });
+                                        final message = messages![index];
+                                        return _buildMessage(
+                                          message,
+                                          message.userId1 ==
+                                              global.uid.toString(),
+                                        );
+                                      },
+                                    ),
+                                  );
+                          }
+                      }
+                    }),
+              )
+            ],
           ),
         ),
-        bottomSheet: Container(
-          height: SizeConfig.blockSizeVertical * 12,
-          child: bottomChatBar(),
-        ),
+        // ),
+        // bottomSheet: Container(
+        //   height: SizeConfig.blockSizeVertical * 12,
+        //   child: bottomChatBar(),
+        // ),
       ),
     );
   }

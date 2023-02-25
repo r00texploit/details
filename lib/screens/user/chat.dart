@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:details/model/chatmodel/apiHelper.dart';
 import 'package:details/model/chatmodel/messageModel.dart';
+import 'package:details/screens/Chat/chat_screen.dart';
 import 'package:details/screens/Chat/image_view_screen.dart';
 import 'package:details/screens/Chat/size_config.dart';
 import 'package:details/widget/toastfile.dart';
@@ -199,18 +200,24 @@ class ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 4, 72, 77),
-      body: SafeArea(
-        child: Stack(children: [
-          Column(
-            children: [
-              topChat(),
-              // bodyChat()
-              // ChatScreen(),
-            ],
-          ),
-          _formchat(),
-        ]),
-      ),
+      body: Flex(direction: Axis.vertical, children: [
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Stack(children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                topChat(),
+                // bodyChat(),
+                // _formchat()
+              ],
+            ),
+            ChatScreen(),
+            _formchat(),
+          ]),
+        ),
+      ]),
     );
   }
 
@@ -238,7 +245,7 @@ class ChatPageState extends State<ChatPage> {
                   // fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 3,
               ),
               Text(
@@ -301,69 +308,74 @@ class ChatPageState extends State<ChatPage> {
   List<MessagesModel>? messages = [];
   bool isDone = false;
   Widget bodyChat() {
-    return LayoutBuilder(
-      builder: (context, constraints) => Scrollbar(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            Expanded(
-              child: StreamBuilder<List<MessagesModel>>(
-                  stream: apiHelper.getChatMessages(
-                      global.TID, global.uid.toString()),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      default:
-                        if (snapshot.hasError) {
-                          return buildText('something went wrong');
-                        } else {
-                          messages = snapshot.data;
-                          if (messages == null) {
-                            messages = [];
-                          }
+    return
+        // LayoutBuilder(
+        //   builder: (context, constraints) =>
+        SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: ScrollPhysics(),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          // Expanded(
+          //   child:
+          StreamBuilder<List<MessagesModel>>(
+              stream: apiHelper.getChatMessages(
+                global.uid.toString(),
+                global.TID,
+              ),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  default:
+                    if (snapshot.hasError) {
+                      return buildText('something went wrong');
+                    } else {
+                      messages = snapshot.data;
+                      if (messages == null) {
+                        messages = [];
+                      }
 
-                          return messages!.isEmpty
-                              ? buildText('say HI')
-                              : Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom:
-                                          SizeConfig.blockSizeVertical * 12),
-                                  child: ListView.builder(
-                                    reverse: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: messages!.length,
-                                    itemBuilder: (context, index) {
-                                      var groupDate = groupBy(
-                                          messages!,
-                                          (dynamic a) => a.createdAt
-                                              .toString()
-                                              .substring(0, 10));
-                                      groupDate.forEach((key, value) {
-                                        MessagesModel m = value.lastWhere((e) =>
-                                            e.createdAt
-                                                .toString()
-                                                .substring(0, 10) ==
-                                            key.toString());
-                                        messages![messages!.indexOf(m)]
-                                            .isShowDate = true;
-                                        isDone = true;
-                                      });
-                                      final message = messages![index];
-                                      return _buildMessage(
-                                        message,
-                                        message.userId1 ==
-                                            global.uid.toString(),
-                                      );
-                                    },
-                                  ),
-                                );
-                        }
+                      return messages!.isEmpty
+                          ? buildText('say HI')
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: SizeConfig.blockSizeVertical * 12),
+                              child: ListView.builder(
+                                reverse: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: messages!.length,
+                                itemBuilder: (context, index) {
+                                  var groupDate = groupBy(
+                                      messages!,
+                                      (dynamic a) => a.createdAt
+                                          .toString()
+                                          .substring(0, 10));
+                                  groupDate.forEach((key, value) {
+                                    MessagesModel m = value.lastWhere((e) =>
+                                        e.createdAt
+                                            .toString()
+                                            .substring(0, 10) ==
+                                        key.toString());
+                                    messages![messages!.indexOf(m)].isShowDate =
+                                        true;
+                                    isDone = true;
+                                  });
+                                  final message = messages![index];
+                                  return _buildMessage(
+                                    message,
+                                    message.userId1 == global.uid.toString(),
+                                  );
+                                },
+                              ),
+                            );
                     }
-                  }),
-            )
-          ],
-        ),
+                }
+              }),
+          // )
+        ],
+        // ),
       ),
     );
   }
@@ -474,11 +486,13 @@ class ChatPageState extends State<ChatPage> {
                                     children: [
                                       Container(
                                         margin: const EdgeInsets.all(3),
-                                        constraints: BoxConstraints(
-                                            maxWidth: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .6),
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 60,
+                                          //  MediaQuery.of(context)
+                                          //         .size
+                                          //         .width *
+                                          //     .6
+                                        ),
                                         padding: const EdgeInsets.all(10.0),
                                         decoration: const BoxDecoration(
                                           color: Color(0xffF4F4F4),
@@ -557,10 +571,12 @@ class ChatPageState extends State<ChatPage> {
                                     Container(
                                       margin: const EdgeInsets.all(3),
                                       constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .6),
+                                        maxWidth: 60,
+                                        //  MediaQuery.of(context)
+                                        //         .size
+                                        //         .width *
+                                        //     .6
+                                      ),
                                       padding: const EdgeInsets.all(10.0),
                                       decoration: const BoxDecoration(
                                         color: Color(0xffF4F4F4),
@@ -664,7 +680,7 @@ class ChatPageState extends State<ChatPage> {
                   onPressed: () async {
                     await sendMessage();
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.send_rounded,
                     color: Colors.white,
                     size: 28,
