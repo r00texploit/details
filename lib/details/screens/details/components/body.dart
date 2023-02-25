@@ -3,6 +3,7 @@ import 'package:details/details/models/product.dart';
 import 'package:details/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'chat_and_add_to_cart.dart';
 import 'list_of_colors.dart';
@@ -66,12 +67,21 @@ class Body extends StatelessWidget {
                       color: kSecondaryColor,
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
-                    child: Text(
-                      "name description",
-                      style: TextStyle(color: kTextLightColor),
+                    child: Row(
+                      children: [
+                        Text(
+                          "name description",
+                          style: TextStyle(color: kTextLightColor),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              launchUrlString("tel:${name!.number}");
+                            },
+                            icon: Icon(Icons.call))
+                      ],
                     ),
                   ),
                   const SizedBox(height: kDefaultPadding),

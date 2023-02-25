@@ -90,9 +90,6 @@ class AddTravelController extends GetxController {
       await credential.user!.reload();
       var re = <String, dynamic>{
         'uid': credential.user!.uid,
-        // "No": int.tryParse(no.text),
-        // "department": dep.text,
-        // "name": name.text,
         "email": email.text,
         "password": password.text
       };

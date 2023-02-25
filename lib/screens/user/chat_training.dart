@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:developer' as d;
 import 'dart:math';
 // import 'dart:math';
 
@@ -36,12 +36,12 @@ import "package:collection/collection.dart";
 //   }
 // }
 
-class Chat extends StatefulWidget {
+class ChatTraining extends StatefulWidget {
   @override
-  _ChatState createState() => _ChatState();
+  _ChatTrainingState createState() => _ChatTrainingState();
 }
 
-class _ChatState extends State<Chat> {
+class _ChatTrainingState extends State<ChatTraining> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +94,7 @@ class _ChatState extends State<Chat> {
                 padding: const EdgeInsets.all(20),
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('training')
+                        .collection('users')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (!snapshot.hasData) {
@@ -130,13 +130,21 @@ class _ChatState extends State<Chat> {
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  print(snapshot.data!.docs[index]['uid']);
+                                  // print(snapshot.data!.docs[index]['uid']);
+                                  // var chats = FirebaseFirestore.instance
+                                  //     .collection('messages')
+                                  //     .where("uid",
+                                  //         isEqualTo: snapshot.data!.docs[index]
+                                  //             .get("uid"));
+                                  queryValues(
+                                      snapshot.data!.docs[index]['email']);
                                   return _itemChats(
-                                    avatar: snapshot.data!.docs[index]['img'],
+                                    // avatar: snapshot.data!.docs[index]['img'],
                                     name: snapshot.data!.docs[index]['name'],
                                     userid: snapshot.data!.docs[index]['uid'],
                                     tel: snapshot.data!.docs[index]['number'],
                                   );
+                                  // }
                                 }),
                           );
                         }
@@ -148,16 +156,40 @@ class _ChatState extends State<Chat> {
     );
   }
 
+  void queryValues([uid]) {
+    var chatuid;
+    FirebaseFirestore.instance
+        .collection('messages')
+        .where("sender", isEqualTo: uid)
+        .get()
+        .then((res) {
+      for (var doc in res.docs) {
+        print("${doc.id} => ${doc.data()}");
+        if (doc.id == uid) {
+          chatuid = uid;
+          d.log("new uid:$chatuid");
+        }
+      }
+      res.printInfo();
+    });
+    // setState(() {
+    //   // chatuid = tempTotal;
+    // });
+    debugPrint(chatuid.toString());
+    // });
+  }
+
   Widget _itemChats({
-    String? avatar,
-    name,
+    String?
+        // avatar,
+        name,
     tel,
     userid,
   }) {
     return GestureDetector(
         onTap: () {
-          Get.to(
-              () => ChatScreen1(name: name, tel: tel, img: avatar, uid: userid));
+          Get.to(() =>
+              ChatScreen1(name: name, tel: tel, /*img: avatar*/ uid: userid));
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) =>
@@ -174,7 +206,7 @@ class _ChatState extends State<Chat> {
             //   size: 60,
             //   Image: Image.network(avatar!,height: 80,width: 80,scale: 1),
             // ),
-            Image.network(avatar!, height: 80, width: 80, scale: 1),
+            // Image.network(avatar!, height: 80, width: 80, scale: 1),
             Expanded(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -13,6 +13,7 @@ import 'package:details/screens/center/home.dart';
 import 'package:details/screens/expantion.dart';
 import 'package:details/screens/login_screen.dart';
 import 'package:details/screens/signup_screen.dart';
+import 'package:details/screens/user/chat_training.dart';
 import 'package:details/widget/catogris.dart';
 import 'package:details/widget/loading.dart';
 import 'package:details/widget/snackbar.dart';
@@ -381,7 +382,7 @@ class AuthController extends GetxController {
           email!.clear();
           password!.clear();
           Get.back();
-          Get.offAll(() => RoomsPage());
+          Get.offAll(() => ChatTraining());
         }
         if (approve == 4) {
           email!.clear();

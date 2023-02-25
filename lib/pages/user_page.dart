@@ -1,5 +1,6 @@
 import 'package:bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:details/AdminHome.dart';
 import 'package:details/pages/erchad.dart';
 // import 'package:details/screens/center/item.dart';
 import 'package:details/pages/item.dart';
