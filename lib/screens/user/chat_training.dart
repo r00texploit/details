@@ -133,16 +133,15 @@ class _ChatTrainingState extends State<ChatTraining> {
                                 itemCount: data.data!.docs.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return StreamBuilder<QuerySnapshot>(
-                                      stream: users.asStream(),
-                                      // FirebaseFirestore.instance
-                                      //     .collection("users")
-                                      //     .where("uid",
-                                      //         isEqualTo:
-                                      //             users.get())
-                                      // .where("isTrainer", isEqualTo: false)
-                                      // .where("receiver",isNotEqualTo: data.data!.docs[index]['uid'])
-                                      // .where("sender",)
-                                      // .snapshots(),
+                                      stream: FirebaseFirestore.instance
+                                          .collection("users")
+                                          // .where("uid",
+                                          //     isEqualTo:
+                                          //         users)
+                                          // .where("isTrainer", isEqualTo: false)
+                                          // .where("receiver",isNotEqualTo: data.data!.docs[index]['uid'])
+                                          // .where("sender",)
+                                          .snapshots(),
                                       builder: ((context, snapshot) {
                                         // return Text("");
                                         return _itemChats(
