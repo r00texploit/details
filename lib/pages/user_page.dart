@@ -369,7 +369,7 @@ class ItemsUser extends StatelessWidget {
                     child: const Text(
                       "The art of dealing",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Color(0xff4ac53a5),
                         fontWeight: FontWeight.bold,
                       ),

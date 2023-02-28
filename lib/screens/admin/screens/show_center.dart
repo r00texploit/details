@@ -34,7 +34,7 @@ class _ShowcenterState extends State<Showcenter> {
                 } else {
                   if (snapshot.data!.docs.isEmpty) {
                     return const Center(
-                      child: Text('No A vailable requset',
+                      child: Text('No Available requset',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),

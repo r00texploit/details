@@ -18,7 +18,6 @@ class ProductPoster extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: kDefaultPadding),
       // the height of this container is 80% of our width
       height: size!.width * 0.8,
-
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
@@ -28,8 +27,13 @@ class ProductPoster extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
             ),
           ),
+          // showAboutDialog(context: context),
           Image.asset(
             "assets/image/avatar-1.png",
             // image!,

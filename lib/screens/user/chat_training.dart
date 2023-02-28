@@ -11,6 +11,7 @@ import 'package:details/screens/Chat/image_view_screen.dart';
 import 'package:details/screens/Chat/size_config.dart';
 import 'package:details/training_list_chat.dart';
 import 'package:details/widget/toastfile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -65,7 +66,7 @@ class _ChatTrainingState extends State<ChatTraining> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Chat with \nyour Trainer',
+            'Chat with \nyour Trainee',
             style: TextStyle(
                 fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
           ),
@@ -86,6 +87,7 @@ class _ChatTrainingState extends State<ChatTraining> {
   }
 
   Widget _body() {
+    var users = FirebaseFirestore.instance.collection("users").get();
     return SingleChildScrollView(
       child: CustomScrollView(shrinkWrap: true, slivers: [
         SliverList(
@@ -95,7 +97,9 @@ class _ChatTrainingState extends State<ChatTraining> {
                 padding: const EdgeInsets.all(20),
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('users')
+                        .collection('chats')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .collection("messages")
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> data) {
                       if (!data.hasData) {
@@ -129,19 +133,27 @@ class _ChatTrainingState extends State<ChatTraining> {
                                 itemCount: data.data!.docs.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return StreamBuilder<QuerySnapshot>(
-                                      stream: FirebaseFirestore.instance
-                                          .collection("chats")
-                                          .where("isTrainer", isEqualTo: false)
-                                          .where("receiver",isNotEqualTo: data.data!.docs[index]['uid'])
-                                          // .where("sender",)
-                                          .snapshots(),
+                                      stream: users.asStream(),
+                                      // FirebaseFirestore.instance
+                                      //     .collection("users")
+                                      //     .where("uid",
+                                      //         isEqualTo:
+                                      //             users.get())
+                                      // .where("isTrainer", isEqualTo: false)
+                                      // .where("receiver",isNotEqualTo: data.data!.docs[index]['uid'])
+                                      // .where("sender",)
+                                      // .snapshots(),
                                       builder: ((context, snapshot) {
                                         // return Text("");
                                         return _itemChats(
-                                          // avatar: snapshot.data!.docs[index]['img'],
-                                          name: data.data!.docs[index]['name'],
-                                          userid: data.data!.docs[index]['uid'],
-                                          tel: data.data!.docs[index]['number'],
+                                          email: snapshot.data!.docs[index]
+                                              ['email'],
+                                          name: snapshot.data!.docs[index]
+                                              ['name'],
+                                          userid: snapshot.data!.docs[index]
+                                              ['uid'],
+                                          tel: snapshot.data!.docs[index]
+                                              ['number'],
                                         );
                                       }));
                                 }),
@@ -155,40 +167,41 @@ class _ChatTrainingState extends State<ChatTraining> {
     );
   }
 
-  void queryValues([uid]) {
-    var chatuid;
-    FirebaseFirestore.instance
-        .collection('messages')
-        .where("sender", isEqualTo: uid)
-        .get()
-        .then((res) {
-      for (var doc in res.docs) {
-        print("${doc.id} => ${doc.data()}");
-        if (doc.id == uid) {
-          chatuid = uid;
-          d.log("new uid:$chatuid");
-        }
-      }
-      res.printInfo();
-    });
-    // setState(() {
-    //   // chatuid = tempTotal;
-    // });
-    debugPrint(chatuid.toString());
-    // });
-  }
+  // void queryValues([uid]) {
+  //   var chatuid;
+  //   FirebaseFirestore.instance
+  //       .collection('messages')
+  //       .where("sender", isEqualTo: uid)
+  //       .get()
+  //       .then((res) {
+  //     for (var doc in res.docs) {
+  //       print("${doc.id} => ${doc.data()}");
+  //       if (doc.id == uid) {
+  //         chatuid = uid;
+  //         d.log("new uid:$chatuid");
+  //       }
+  //     }
+  //     res.printInfo();
+  //   });
+  //   // setState(() {
+  //   //   // chatuid = tempTotal;
+  //   // });
+  //   debugPrint(chatuid.toString());
+  //   // });
+  // }
 
   Widget _itemChats({
     String?
         // avatar,
         name,
     tel,
+    email,
     userid,
   }) {
     return GestureDetector(
         onTap: () {
           Get.to(() =>
-              ChatScreen2(name: name, tel: tel, /*img: avatar*/ uid: userid));
+              ChatScreen2(name: name, tel: tel, email: email, uid: userid));
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) =>

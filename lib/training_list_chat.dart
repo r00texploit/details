@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:details/controller/auth_controller.dart';
 import 'package:details/model/chatmodel/global.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,9 +16,14 @@ String? messageText;
 
 class ChatScreen2 extends StatefulWidget {
   static const String screenRoute = 'chat_screen';
-  String? img, name, tel, uid;
+  String? img, name, tel, uid, email;
   ChatScreen2(
-      {Key? key, img, required this.name, required this.tel, required this.uid})
+      {Key? key,
+      img,
+      required this.name,
+      required this.tel,
+      required this.uid,
+      required this.email})
       : super(key: key);
 
   @override
@@ -90,10 +96,11 @@ class _ChatScreenState extends State<ChatScreen2> {
         actions: [
           IconButton(
             onPressed: () {
+              var ctrl = Get.put(AuthController());
               // messagesStreams();
-              // _auth.signOut();
+              ctrl.signOut();
               // Navigator.pop(context);
-              Get.back();
+              // Get.back();
             },
             icon: Icon(Icons.close),
           )
@@ -106,9 +113,14 @@ class _ChatScreenState extends State<ChatScreen2> {
           children: [
             StreamBuilder<QuerySnapshot>(
                 stream: _firestore
-                    .collection('messages')
+                    .collection('chats')
+                    .doc(_auth.currentUser!.uid)
+                    .collection("messages")
+                    .doc(widget.uid)
+                    .collection("users")
+                    .where("receiver", isEqualTo: _auth.currentUser!.uid)
+                    .where("sender", isEqualTo: widget.email)
                     .orderBy("time", descending: false)
-                    // .where("field")
                     .snapshots(),
                 builder: (context, snapshot) {
                   List<MessageLine> messageWidgets = [];
@@ -172,7 +184,13 @@ class _ChatScreenState extends State<ChatScreen2> {
                   TextButton(
                     onPressed: () {
                       log("message:$uid");
-                      _firestore.collection('messages').add({
+                      _firestore
+                          .collection('chats')
+                          .doc(_auth.currentUser!.uid)
+                          .collection("messages")
+                          .doc(widget.uid)
+                          .collection("users")
+                          .add({
                         'sender': signedInUser.email,
                         'receiver': widget.uid,
                         'text': messageController.text.trim(),
