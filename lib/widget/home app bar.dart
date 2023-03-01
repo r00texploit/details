@@ -1,4 +1,5 @@
 import 'package:details/controller/auth_controller.dart';
+import 'package:details/widget/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,11 +11,17 @@ class HomeAppBer extends StatelessWidget {
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.sort,
-            size: 30,
-            color: Color(0xFFEDECF2),
-          ),
+          IconButton(
+              onPressed: () {
+                // GlobalKey<Drawer>? drawer = GlobalKey();
+                // buildDrawer(context);
+              },
+              icon: Icon(Icons.sort)),
+          // const Icon(
+          //   Icons.sort,
+          //   size: 30,
+          //   color: Color(0xFFEDECF2),
+          // ),
           const Padding(
             padding: EdgeInsets.only(
               left: 20,

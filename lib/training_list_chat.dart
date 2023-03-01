@@ -133,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen2> {
 
                   final messages = snapshot.data!.docs;
                   for (var message in messages) {
-                    final messageSender = message.get('sender');
+                    final messageSender = widget.name; //message.get('sender');
                     final messageText = message.get('text');
                     final currentUser = signedInUser.email;
                     final receiver = message.get("receiver");

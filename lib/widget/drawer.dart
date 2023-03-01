@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:details/screens/Chat/chat_list.dart';
 import 'package:details/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,13 +12,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:vendor/beanmodel/appinfomodel.dart';
 // import 'package:vendor/main.dart';
 
-Future getSharedValue() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  // hitAppInfo();
-  return prefs.getString('store_name');
-}
+// Future getSharedValue() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   // hitAppInfo();
+//   return prefs.getString('store_name');
+// }
 
-String? liveChat = '1';
+// String? liveChat = '1';
 
 // void hitAppInfo() async {
 //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,29 +48,32 @@ Drawer buildDrawer(BuildContext context) {
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/menubg2.png'), fit: BoxFit.cover)),
+          // image: DecorationImage(
+          //     image: AssetImage('assets/menubg2.png'), fit: BoxFit.cover)
+          ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 54.0),
-            child: FutureBuilder(
-              builder: (context, snapshot) {
+            child:
+            //  FutureBuilder(
+            //   builder: (context, snapshot) {
                 // if (snapshot.connectionState == ConnectionState.waiting) {
                 // hitAppInfo();
                 // }
-                return Text(
-                  (snapshot.hasData) ? 'hey ${snapshot.data}' : '',
+                // return 
+                Text(
+                  FirebaseAuth.instance.currentUser!.displayName!,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(fontSize: 22, letterSpacing: 0.5),
-                );
-              },
-              future: getSharedValue(),
-            ),
+                )
+              // },
+              // future: getSharedValue(),
+            // ),
           ),
           Expanded(
               child: SingleChildScrollView(
@@ -81,10 +85,10 @@ Drawer buildDrawer(BuildContext context) {
                 // buildListTile(context, Icons.assignment_returned, locale.myItems!, PageRoutes.myItemsPage),
                 // buildListTile(context, Icons.account_balance_wallet, locale.myEarnings!, PageRoutes.myEarnings),
                 // buildListTile(context, Icons.account_box, locale.myProfile!, PageRoutes.myProfile),
-                liveChat == "1"
-                    ? buildListTile(
-                        context, Icons.message, "chat", ChatListPage())
-                    : SizedBox(),
+                // liveChat == "1"
+                //     ? buildListTile(
+                //         context, Icons.message, "chat", ChatListPage())
+                //     : SizedBox(),
                 // buildListTile(context, Icons.notifications_active, locale.notifications!, PageRoutes.notificationList),
                 // buildListTile(context, Icons.view_list, locale.aboutUs!, PageRoutes.aboutus),
                 // buildListTile(context, Icons.admin_panel_settings_rounded, locale.tnc!, PageRoutes.tnc),
@@ -92,14 +96,15 @@ Drawer buildDrawer(BuildContext context) {
                 // buildListTile(context, Icons.language, locale.language!, PageRoutes.chooseLanguage),
                 ListTile(
                   onTap: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.clear().then((value) {
+                    // SharedPreferences prefs =
+                    //     await SharedPreferences.getInstance();
+                    // prefs.clear().then((value) {
                       Navigator.pushAndRemoveUntil(context,
                           MaterialPageRoute(builder: (context) {
                         return LoginScreen();
                       }), (Route<dynamic> route) => false);
-                    });
+                    // }
+                    // );
                   },
                   leading: Icon(
                     Icons.exit_to_app,
